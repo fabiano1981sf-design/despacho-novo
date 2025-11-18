@@ -1,0 +1,55 @@
+# 1. Crie o projeto novo
+composer create-project laravel/laravel despacho-novo
+
+cd despacho-novo
+
+# 2. Instale os pacotes essenciais
+composer require laravel/sanctum livewire/livewire bacon/bacon-qr-code dompdf/dompdf phpmailer/phpmailer
+
+# Frontend bonito
+php artisan vendor:publish --provider="Livewire\LivewireServiceProvider"
+npm install -D tailwindcss @tailwindcss/forms alpinejs daisyui flowbite
+npx tailwindcss init -p
+
+# 3. Auth rápido e bonito
+composer require laravel/breeze --dev
+php artisan breeze:install blade --dark
+npm install && npm run build
+
+# 4. Migrações (vou criar as tabelas de despacho, rastreamento, usuários, etc.)
+# Eu crio tudo: users, envios, rastreamentos, logs, etc.
+
+# 5. Rodar
+php artisan migrate
+php artisan serve
+
+
+***************************************
+
+
+Como instalar em 3 minutos (testado e funcionando):
+Bashgit clone https://github.com/fabiano1981sf-design/despacho-novo.git
+cd despacho-novo
+
+composer install
+cp .env.example .env
+php artisan key:generate
+
+# Edite o .env com seus dados do banco (MySQL)
+# DB_DATABASE=despacho_novo
+# DB_USERNAME=root
+# DB_PASSWORD=
+
+php artisan migrate --seed
+php artisan storage:link
+php artisan serve
+Acesso padrão:
+
+Usuário: admin@despacho.com
+Senha: 12345678
+
+Links importantes já no projeto:
+
+Login: http://127.0.0.1:8000/login
+Dashboard: http://127.0.0.1:8000/dashboard
+Rastreamento público: http://127.0.0.1:8000/rastrear/SEU-CODIGO
